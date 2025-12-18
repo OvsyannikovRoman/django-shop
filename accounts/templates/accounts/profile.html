@@ -1,0 +1,15 @@
+{% extends "shop/layout.html" %}
+{% block content %}
+    <h2>Профіль користувача: {{ user.username }}</h2>
+    <img src="{{ user.profile.avatar.url }}" style="width:150px; border-radius:50%;">
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <fieldset>
+            <legend>Оновити інформацію</legend>
+            {{ u_form.as_p }}
+            {{ p_form.as_p }}
+        </fieldset>
+        <button type="submit">Оновити</button>
+    </form>
+{% endblock %}

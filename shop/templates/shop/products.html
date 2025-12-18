@@ -1,0 +1,53 @@
+{% extends 'shop/layout.html' %}
+
+{% block title %}Список товарів{% endblock %}
+
+{% block content %}
+    <h2>Наявні товари</h2>
+
+    <a href="{% url 'product-create' %}">
+        <button style="margin-bottom: 20px; padding: 10px; background: #007bff; color: white; border: none; cursor: pointer;">
+            + Створити товар
+        </button>
+    </a>
+
+    <table border="1" style="width: 100%; border-collapse: collapse;">
+        <thead>
+            <tr style="background-color: #f2f2f2;">
+                <th style="padding: 10px;">Назва</th>
+                <th style="padding: 10px;">Ціна</th>
+                <th style="padding: 10px;">Кількість</th>
+                <th style="padding: 10px;">Категорія</th>
+                <th style="padding: 10px;">Купити</th> <th style="padding: 10px;">Управління</th> </tr>
+        </thead>
+        <tbody>
+            {% for product in products %}
+            <tr>
+                <td style="padding: 10px;">
+                    <a href="{% url 'product-detail' product.pk %}">
+                        {{ product.title }}
+                    </a>
+                </td>
+                <td style="padding: 10px;">{{ product.price }} грн</td>
+                <td style="padding: 10px;">{{ product.product_qty }}</td>
+                <td style="padding: 10px;">{{ product.category }}</td>
+                
+                <td style="padding: 10px; text-align: center;">
+                    <form action="{% url 'cart_add' product.id %}" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="quantity" value="1">
+                        <button type="submit" style="background: #28a745; color: white; border: none; padding: 5px 10px; cursor: pointer; border-radius: 5px;">
+                            🛒 В кошик
+                        </button>
+                    </form>
+                </td>
+
+                <td style="padding: 10px; text-align: center;">
+                    <a href="{% url 'product-update' product.pk %}">✏</a> |
+                    <a href="{% url 'product-delete' product.pk %}" style="color: red;">❌</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

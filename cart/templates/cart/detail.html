@@ -1,0 +1,43 @@
+{% extends "shop/layout.html" %}
+
+{% block title %}Кошик{% endblock %}
+
+{% block content %}
+    <h1>Ваш кошик</h1>
+    <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+        <thead>
+            <tr style="background: #f8f9fa; text-align: left;">
+                <th style="padding: 10px;">Товар</th>
+                <th style="padding: 10px;">Кількість</th>
+                <th style="padding: 10px;">Ціна</th>
+                <th style="padding: 10px;">Всього</th>
+                <th style="padding: 10px;">Дії</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in cart %}
+                {% with product=item.product %}
+                <tr style="border-bottom: 1px solid #ddd;">
+                    <td style="padding: 10px;">{{ product.title }}</td>
+                    <td style="padding: 10px;">{{ item.quantity }}</td>
+                    <td style="padding: 10px;">{{ item.price }} грн</td>
+                    <td style="padding: 10px;">{{ item.total_price }} грн</td>
+                    <td style="padding: 10px;">
+                        <a href="{% url 'cart_remove' product.id %}" style="color: red;">Видалити</a>
+                    </td>
+                </tr>
+                {% endwith %}
+            {% empty %}
+                <tr>
+                    <td colspan="5" style="text-align: center; padding: 20px;">Кошик порожній</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div style="margin-top: 20px; text-align: right;">
+        <h3>Загальна сума: {{ cart.get_total_price }} грн</h3>
+        <a href="{% url 'products' %}" style="background: gray; color: white; padding: 10px 20px; text-decoration: none;">Продовжити покупки</a>
+        <a href="#" style="background: green; color: white; padding: 10px 20px; text-decoration: none;">Оформити замовлення</a>
+    </div>
+{% endblock %}

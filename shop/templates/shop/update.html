@@ -1,0 +1,13 @@
+{% extends 'shop/layout.html' %}
+{% block title %}Редагування{% endblock %}
+{% block content %}
+    <h2>Оновити товар: {{ product.title }}</h2>
+    <form method="post">
+        {% csrf_token %}
+        <p><label>Назва:</label> {{ form.title }}</p>
+        <p><label>Ціна:</label> {{ form.price }}</p>
+        <p><label>Кількість:</label> {{ form.product_qty }}</p>
+        <p><label>Категорія:</label> {{ form.category }}</p>
+        <button type="submit" style="background: orange; padding: 8px 15px; border: none;">Зберегти зміни</button>
+    </form>
+{% endblock %}

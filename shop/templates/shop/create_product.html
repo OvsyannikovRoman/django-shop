@@ -1,0 +1,20 @@
+{% extends 'shop/layout.html' %}
+
+{% block title %}Додавання товару{% endblock %}
+
+{% block content %}
+<div style="max-width: 500px; margin: 0 auto;">
+    <h1>Додати новий товар</h1>
+    <form method="post">
+        {% csrf_token %}
+        <p><label>Назва:</label> {{ form.title }}</p>
+        <p><label>Ціна:</label> {{ form.price }}</p>
+        <p><label>Кількість:</label> {{ form.product_qty }}</p>
+        <p><label>Категорія:</label> {{ form.category }}</p>
+        
+        <button type="submit" style="padding: 10px 20px; background: green; color: white; border: none; cursor: pointer;">
+            Зберегти товар
+        </button>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,53 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale-1.0">
+    <title>{% block title %}Мій Магазин{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'shop/css/style.css' %}">
+</head>
+<body>
+    <header style="background: #f8f9fa; padding: 15px 20px; border-bottom: 1px solid #ddd; display: flex; justify-content: space-between; align-items: center;">
+        
+        <div class="left-menu">
+            <h1 style="margin: 0; display: inline-block; font-size: 24px; margin-right: 20px;">Django Shop</h1>
+            <nav style="display: inline-block;">
+                <a href="{% url 'categories' %}" style="text-decoration: none; color: #333; font-weight: bold; margin-right: 15px;">Головна</a>
+                <a href="{% url 'products' %}" style="text-decoration: none; color: #333; font-weight: bold; margin-right: 15px;">Товари</a>
+                
+                <a href="{% url 'cart_detail' %}" style="text-decoration: none; color: #dc3545; font-weight: bold; border: 1px solid #dc3545; padding: 5px 10px; border-radius: 5px;">
+                    🛒 Кошик
+                </a>
+            </nav>
+        </div>
+
+        <div class="auth-menu">
+            {% if user.is_authenticated %}
+                <span style="margin-right: 10px;">Привіт, <b>{{ user.username }}</b>!</span>
+                <a href="{% url 'profile' %}" style="text-decoration: none; color: white; background-color: #28a745; padding: 5px 10px; border-radius: 5px; margin-right: 5px;">Профіль</a>
+                <form action="{% url 'logout' %}" method="post" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit" style="background: #6c757d; color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer;">Вийти</button>
+                </form>
+            {% else %}
+                <a href="{% url 'login' %}" style="text-decoration: none; color: #333; font-weight: bold; margin-right: 15px;">Увійти</a>
+                <a href="{% url 'register' %}" style="text-decoration: none; color: white; background-color: #007bff; padding: 5px 10px; border-radius: 5px;">Реєстрація</a>
+            {% endif %}
+        </div>
+    </header>
+
+    <main class="container" style="padding: 20px;">
+        {% if messages %}
+            {% for message in messages %}
+                <div style="padding: 10px; margin-bottom: 10px; background: #e9ecef; border-left: 5px solid #007bff;">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        {% block content %}
+        {% endblock %}
+    </main>
+</body>
+</html>
