@@ -8,12 +8,18 @@ python manage.py runserver запуск сервера
 
 https://www.google.com/search?q=http://127.0.0.1:8000/secret-control/
 
+https://web-production-c35e3.up.railway.app/
+
 http://127.0.0.1:8000/
 
 http://127.0.0.1:8000/api/token/ (user12 - qwertyuiop[]123456789)
 
+python manage.py shell -c "from django.contrib.auth.models import User; User.objects.filter(username='admin').exists() or User.objects.create_superuser('admin', 'admin@example.com', 'admin123')" && gunicorn base.wsgi
+
 curl.exe -H "Authorization: Token abd2a62d6c09d6e8427e0406d3e30594eba40020" http://127.0.0.1:8000/api/products/
 sql pas 123456789
+
+супер админ - log-admin12 / pas-admin123
 
 123456789-Admin pas and log
 

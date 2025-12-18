@@ -26,6 +26,10 @@ DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')
 
+CSRF_TRUSTED_ORIGINS = [
+    'https://web-production-c35e3.up.railway.app',
+]
+
 
 # Application definition
 
@@ -38,7 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'shop',
     'accounts',
-    'cart', 
+    'cart',
     'rest_framework',
     'rest_framework.authtoken',
     'api',
